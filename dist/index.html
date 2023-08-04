@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <title>OOP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600&family=Roboto:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+
+<body class="p-10 min-h-screen bg-gradient-to-bl from-teal-800 to-green-800 text-white grid grid-rows-[auto_1fr_auto]">
+    <header>
+        <h1 class="text-center text-5xl">Start your Timer:</h1>
+
+        <button class="ml-auto flex items-center gap-2 text-xl">
+            timer settings <span class="material-symbols-outlined">settings</span>
+        </button>
+    </header>
+    <main class="flex flex-col justify-center gap-8">
+        <div class="flex text-8xl font-bold justify-center">
+            <div id="minutes">
+                00
+            </div>
+            :
+            <div id="seconds">
+                30
+            </div>
+        </div>
+        <div class="flex justify-center gap-4">
+            <button id="startBtn"
+                class="px-4 py-2 font-bold flex items-center gap-2 border-0 bg-lime-400 rounded-full text-zinc-800 duration-300 hover:opacity-60 ">
+                Start timer <span class="material-symbols-outlined">double_arrow</span>
+            </button>
+            <button id="pauseBtn"
+                class="px-4 py-2 font-bold flex items-center gap-2 border-0 bg-lime-400 rounded-full text-zinc-800 duration-300 hover:opacity-60 ">
+                Pause <span class="material-symbols-outlined">pause</span>
+            </button>
+            <button id="resetBtn"
+                class="px-4 py-2 font-bold flex items-center gap-2 border-0 bg-lime-400 rounded-full text-zinc-800 duration-300 hover:opacity-60 ">
+                Reset <span class="material-symbols-outlined">restart_alt</span>
+            </button>
+        </div>
+    </main>
+
+    <form class="fixed z-10 top-0 left-[100vw] min-h-screen px-4 py-10 w-[300px] bg-sky-950">
+        <h6 class="text-4xl mb-5">
+            Set up timer:
+        </h6>
+        <label class="block mb-5">
+            Minutes:
+            <input class="w-full bg-transparent border-b-2" type="number" name="inputMinutes" step="1" min="0">
+        </label>
+        <label class="block mb-5">
+            Seconds:
+            <input class="w-full bg-transparent border-b-2" type="number" name="inputSeconds" step="1" min="0" max="59">
+        </label>
+        <button
+            class=" mt-20 w-full px-4 py-2 font-bold flex justify-center items-center gap-2 border-0 bg-lime-400 rounded-full text-zinc-800 duration-300 hover:opacity-60 ">
+            Set timer
+        </button>
+    </form>
+
+    <footer class="text-center border-t-2 pt-5">
+        2023. &copy; All right reserved
+    </footer>
+    <script type="module" src="./bundle.js"></script>
+</body>
+
+</html>
