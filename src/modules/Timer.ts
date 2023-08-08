@@ -1,13 +1,29 @@
+import addLeadingZero from '../utils/addLeadingZero';
+
 export default class Timer {
-  startSeconds: number;
+  initialMinutes: number;
+
+  initialSeconds: number;
+
+  minutes: number;
+
   seconds: number;
-  secondsElement: HTMLElement;
+
+  minutesElement: HTMLDivElement;
+
+  secondsElement: HTMLDivElement;
+
   isRunning: boolean;
+
   // eslint-disable-next-line no-undef
   interval: NodeJS.Timer;
-  constructor(seconds: number) {
-    this.startSeconds = seconds;
+
+  constructor(minutes: number, seconds: number) {
+    this.initialMinutes = minutes;
+    this.initialSeconds = seconds;
+    this.minutes = minutes;
     this.seconds = seconds;
+    this.minutesElement = document.querySelector('#minutes');
     this.secondsElement = document.querySelector('#seconds');
     this.isRunning = false;
   }
@@ -20,20 +36,34 @@ export default class Timer {
     this.isRunning = true;
     this.interval = setInterval(() => {
       if (this.seconds > 0) {
-        this.seconds--;
+        this.seconds -= 1;
+      } else if (this.minutes > 0) {
+        this.minutes -= 1;
+        this.seconds = 59;
       } else {
-        this.isRunning = false;
-        clearInterval(this.interval);
+        this.stop();
       }
+      this.drawTime(this.minutes, this.seconds);
     }, 1000);
   }
 
   pause() {
+    this.stop();
+  }
+
+  reset() {
+    this.minutes = this.initialMinutes;
+    this.seconds = this.initialSeconds;
+    this.drawTime(this.minutes, this.seconds);
+  }
+
+  stop() {
     this.isRunning = false;
     clearInterval(this.interval);
   }
 
-  reset() {
-    this.seconds = this.startSeconds;
+  drawTime(minutes: number, seconds: number) {
+    this.minutesElement.innerText = addLeadingZero(minutes.toString());
+    this.secondsElement.innerText = addLeadingZero(seconds.toString());
   }
 }
