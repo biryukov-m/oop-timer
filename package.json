@@ -19,12 +19,11 @@
     "@typescript-eslint/parser": "^6.2.1",
     "concurrently": "^8.2.0",
     "eslint": "^8.46.0",
-    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-airbnb-typescript": "^17.1.0",
     "eslint-config-prettier": "^8.10.0",
     "eslint-import-resolver-typescript": "^3.5.5",
     "eslint-plugin-prettier": "^5.0.0",
-    "eslint-plugin-react": "^7.33.1",
     "eslint-webpack-plugin": "^4.0.1",
     "postcss-loader": "^7.3.3",
     "postcss-preset-env": "^9.1.0",
@@ -33,9 +32,7 @@
     "ts-loader": "^9.4.4",
     "typescript": "^5.1.6",
     "webpack": "^5.88.2",
-    "webpack-dev-server": "^4.15.1"
-  },
-  "dependencies": {
+    "webpack-dev-server": "^4.15.1",
     "@types/tailwindcss": "^3.1.0",
     "autoprefixer": "^10.4.14",
     "css-loader": "^6.8.1",
@@ -44,5 +41,6 @@
     "postcss": "^8.4.27",
     "style-loader": "^3.3.3",
     "webpack-cli": "^5.1.4"
-  }
+  },
+  "dependencies": {}
 }

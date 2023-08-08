@@ -1,27 +1,37 @@
----
-# Root level rules for the entire project
+# 💠 ENV
 root: true
-
-# Environment settings (you can customize these based on your project)
 env:
   browser: true
-  node: true
-  es6: true
-
-# Specifies the parser to use (e.g., babel-eslint, @typescript-eslint/parser)
-parser: '@typescript-eslint/parser'
-
-# Extend the recommended ESLint rules and any additional plugins you want to use
+  es2021: true
+# 💠 Extends
 extends:
-  - eslint:recommended
-  - plugin:import/recommended
+  - airbnb-base
+  - airbnb-typescript/base
   - plugin:prettier/recommended
 
+# 💠 Parser
+parser: '@typescript-eslint/parser'
+
+# 💠 Parser options
+parserOptions:
+  ecmaVersion: latest
+  sourceType: module
+  project:
+    - ./tsconfig.json
+
+# 💠 Plugins
 plugins:
-  - import
+  - '@typescript-eslint'
   - prettier
 
-# Additional rules and overrides go here
+# 💠 Settings
+settings:
+  import/parsers:
+    '@typescript-eslint/parser': ['.ts', '.tsx']
+  import/resolver:
+    typescript:
+      alwaysTryTypes: true
+
 # ⭐ Rules
 rules:
   # ⭐ Imports & Files extensions
@@ -58,8 +68,6 @@ rules:
   prettier/prettier: [error, { arrowParens: always }]
   # We like nested ternaries
   no-nested-ternary: 'off'
-  # Conflicting with prettier
-  react/jsx-wrap-multilines: 'off'
   # We need __NEXT_DATA__
   no-underscore-dangle: 'off'
   # This is affecting the authentication
@@ -82,13 +90,23 @@ rules:
   # Disabling indent in favor of prettier indentation
   '@typescript-eslint/indent': 'off'
   # Disabling base rule because reports incorrect errors with TypeScript types
+  '@typescript-eslint/no-redeclare': 'error'
+  # We don't like semicolons
+  '@typescript-eslint/semi': 'error'
   # Need it to stop if SERVICE is not passed
   '@typescript-eslint/no-throw-literal': 'off'
-# Overrides for specific files or directories
+# ⭐ Overrides
 # overrides:
-#   - files: ['**/*.ts', '**/*.tsx']
-#     parser: '@typescript-eslint/parser'
-#     extends:
-#       - 'plugin:@typescript-eslint/recommended'
-#     plugins:
-#       - '@typescript-eslint'
+#   [
+#     {
+#       files: ['*.ts', '*.tsx'],
+#       rules: { 'no-undef': 'off' },
+#       parserOptions: { project: ['./tsconfig.json'] }
+#     }
+#   ]
+
+overrides:
+  - files: '*.ts'
+    parser: '@typescript-eslint/parser'
+    parserOptions:
+      project: './tsconfig.json'
