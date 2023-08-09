@@ -13,7 +13,7 @@ export default class Timer {
 
   secondsElement: HTMLDivElement;
 
-  isRunning: boolean;
+  status: 'initial' | 'run' | 'pause' | 'end';
 
   // eslint-disable-next-line no-undef
   interval: NodeJS.Timer;
@@ -25,7 +25,7 @@ export default class Timer {
     this.seconds = seconds;
     this.minutesElement = document.querySelector('#minutes');
     this.secondsElement = document.querySelector('#seconds');
-    this.isRunning = false;
+    this.status = 'initial';
   }
 
   init() {
@@ -33,33 +33,54 @@ export default class Timer {
   }
 
   start() {
-    this.isRunning = true;
-    this.interval = setInterval(() => {
-      if (this.seconds > 0) {
-        this.seconds -= 1;
-      } else if (this.minutes > 0) {
-        this.minutes -= 1;
-        this.seconds = 59;
-      } else {
-        this.stop();
-      }
-      this.drawTime(this.minutes, this.seconds);
-    }, 1000);
+    switch (this.status) {
+      case 'run':
+        break;
+      case 'end':
+      case 'initial':
+      case 'pause':
+        this.status = 'run';
+        this.interval = setInterval(() => {
+          if (this.seconds > 0) {
+            this.seconds -= 1;
+          } else if (this.minutes > 0) {
+            this.minutes -= 1;
+            this.seconds = 59;
+          } else {
+            this.stop();
+          }
+          this.drawTime(this.minutes, this.seconds);
+        }, 1000);
+        break;
+    }
   }
 
   pause() {
-    this.stop();
+    this.status = 'pause';
+    clearInterval(this.interval);
   }
 
   reset() {
-    this.minutes = this.initialMinutes;
-    this.seconds = this.initialSeconds;
+    switch (this.status) {
+      case 'run':
+        this.stop();
+        this.start();
+        break;
+      case 'end':
+      case 'pause':
+        this.status = 'initial';
+        this.minutes = this.initialMinutes;
+        this.seconds = this.initialSeconds;
+        break;
+    }
     this.drawTime(this.minutes, this.seconds);
   }
 
   stop() {
-    this.isRunning = false;
+    this.status = 'end';
     clearInterval(this.interval);
+    this.minutes = this.initialMinutes;
+    this.seconds = this.initialSeconds;
   }
 
   drawTime(minutes: number, seconds: number) {

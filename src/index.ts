@@ -3,6 +3,7 @@ import './css/style.css';
 import Timer from './modules/Timer';
 
 const startBtn = document.querySelector('#startBtn') as HTMLButtonElement;
+const startBtnText = startBtn.querySelector('.text') as HTMLSpanElement;
 const pauseBtn = document.querySelector('#pauseBtn') as HTMLButtonElement;
 const resetBtn = document.querySelector('#resetBtn') as HTMLButtonElement;
 const minutesElement = document.querySelector('#minutes') as HTMLDivElement;
@@ -12,9 +13,26 @@ let timer: Timer;
 
 function toggleButtons() {
   if (timer instanceof Timer) {
-    startBtn.classList.add('hidden');
-    pauseBtn.classList.remove('hidden');
-    resetBtn.classList.remove('hidden');
+    startBtnText.innerText = 'Start timer';
+    switch (timer.status) {
+      case 'initial':
+      case 'end':
+        startBtn.classList.remove('hidden');
+        pauseBtn.classList.add('hidden');
+        resetBtn.classList.add('hidden');
+        break;
+      case 'pause':
+        startBtn.classList.remove('hidden');
+        startBtnText.innerText = 'Resume';
+        pauseBtn.classList.add('hidden');
+        resetBtn.classList.remove('hidden');
+        break;
+      case 'run':
+        startBtn.classList.add('hidden');
+        pauseBtn.classList.remove('hidden');
+        resetBtn.classList.remove('hidden');
+        break;
+    }
   } else {
     startBtn.classList.remove('hidden');
     pauseBtn.classList.add('hidden');
@@ -37,7 +55,7 @@ resetBtn.onclick = () => {
 };
 
 startBtn.onclick = () => {
-  if (timer instanceof Timer && !timer.isRunning) {
+  if (timer instanceof Timer) {
     timer.start();
   } else {
     timer = new Timer(
@@ -45,6 +63,8 @@ startBtn.onclick = () => {
       Number(secondsElement.innerText)
     );
     timer.init();
-    toggleButtons();
   }
+  toggleButtons();
 };
+
+toggleButtons();
